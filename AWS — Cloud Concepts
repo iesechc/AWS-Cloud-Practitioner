@@ -84,14 +84,6 @@
 
 ### Tabela de responsabilidades
 
-| Camada | IaaS | PaaS | SaaS |
-|---|---|---|---|
-| Hardware físico | ✅ AWS | ✅ AWS | ✅ AWS |
-| Virtualização | ✅ AWS | ✅ AWS | ✅ AWS |
-| Sistema Operacional | ❗ Você | ✅ AWS | ✅ AWS |
-| Runtime / Middleware | ❗ Você | ✅ AWS | ✅ AWS |
-| Aplicação | ❗ Você | ❗ Você | ✅ AWS |
-| Dados | ❗ Você | ❗ Você | ❗ Você |
 
 ---
 
