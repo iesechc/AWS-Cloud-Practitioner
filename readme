@@ -1,0 +1,58 @@
+Certified Cloud Practitioner (CLF-C02)**.
+
+---
+
+## 🎯 O que é essa mentoria?
+
+Uma série de sessões ao vivo, organizadas por tema, onde você aprende os conceitos essenciais da AWS com explicações práticas, tira dúvidas em tempo real e recebe orientação sobre como passar na certificação.
+
+Sem custo. Sem pré-requisito técnico. Só precisa de vontade de aprender.
+
+---
+
+## 📚 Conteúdo por sessão
+
+### 1 · Cloud concepts
+- O que é a nuvem e por que ela existe
+- Modelos de serviço: IaaS, PaaS, SaaS
+- Vantagens principais: escalabilidade, elasticidade, custo variável
+
+### 2 · Core services
+- **EC2** — servidores virtuais na nuvem
+- **S3** — armazenamento de objetos
+- **RDS** — banco de dados gerenciado
+- **Lambda** — computação sem servidor (serverless)
+- Quando usar cada um
+
+### 3 · Security & compliance
+- **IAM** — gerenciamento de identidade e acesso
+- Modelo de responsabilidade compartilhada
+- MFA e boas práticas de segurança
+- Políticas e permissões
+
+### 4 · Pricing & support
+- Modelos de preço: On-Demand, Reserved, Spot
+- AWS Pricing Calculator
+- Planos de suporte: Basic, Developer, Business, Enterprise
+
+---
+
+## 🛠️ Recursos gratuitos recomendados
+
+- [AWS Skill Builder](https://skillbuilder.aws) — curso oficial gratuito Cloud Practitioner Essentials
+- [AWS Educate](https://aws.amazon.com/education/awseducate/) — labs práticos gratuitos
+- [Exam Readiness (gratuito)](https://skillbuilder.aws/search?searchText=cloud+practitioner&page=1) — preparação oficial para o exame
+- [AWS re/Start](https://aws.amazon.com/training/restart/) — programa oficial gratuito de requalificação
+
+---
+
+## 📋 Sobre o exame CLF-C02
+
+| Item | Detalhe |
+|------|---------|
+| Duração | 90 minutos |
+| Questões | 65 questões |
+| Nota mínima | 700 / 1000 |
+| Formato | Múltipla escolha e múltipla resposta |
+| Validade | 3 anos |
+| Preço | USD 100 (vouchers gratuitos disponíveis via AWS Educate) |
