@@ -1,0 +1,125 @@
+# ☁️ AWS — Cloud Concepts
+
+## 📌 Por que a nuvem existe?
+
+**Problema antes da nuvem (on-premises):**
+- Comprar hardware levava semanas/meses
+- Custo altíssimo de capital inicial
+- Infraestrutura dimensionada para o pico → desperdício nos outros dias
+- Ex: comprar 10 ônibus só para um domingo de turismo → 9 parados na garagem o resto do ano
+
+**Como a AWS nasceu:**
+- Surgiu de um problema *interno* da Amazon
+- Equipes reinventando a roda com infraestrutura própria
+- Criaram plataforma interna padronizada → perceberam que podiam vender o acesso
+- 2006: lançamento público com S3 (armazenamento) e EC2 (servidores virtuais)
+
+**3 problemas que a nuvem resolve:**
+1. **Capital** → sem compra de hardware, paga centavos por hora
+2. **Escala** → cresce e encolhe automaticamente conforme a demanda
+3. **Velocidade** → servidor pronto em 2 minutos, não em 2 meses
+
+---
+
+## 📌 Definição NIST
+
+> *"Acesso conveniente e sob demanda a um conjunto compartilhado de recursos computacionais que podem ser rapidamente provisionados com mínimo esforço de gerenciamento."*
+
+- **Sob demanda** → você mesmo provisiona, sem falar com ninguém
+- **Compartilhado** → mesma infra física, isolada por virtualização
+- **Rapidamente** → minutos, não semanas
+- **Mínimo esforço** → autoatendimento total, sem contratos
+
+---
+
+## 📌 5 Características Essenciais
+
+| # | Característica | Analogia |
+|---|---|---|
+| 1 | **Autoatendimento sob demanda** | Self-checkout do supermercado |
+| 2 | **Acesso amplo à rede** | Qualquer dispositivo, qualquer lugar |
+| 3 | **Pool de recursos compartilhados (multi-tenancy)** | Estacionamento: vagas demarcadas, ninguém entra no carro do outro |
+| 4 | **Elasticidade rápida** | Elástico de cabelo: estica e volta |
+| 5 | **Serviço medido** | Conta de luz: paga só o que consumiu |
+
+---
+
+## 📌 Modelos de Serviço — IaaS / PaaS / SaaS
+
+**Analogia da pizza 🍕**
+- **IaaS** → fazer em casa: você compra os ingredientes, prepara tudo
+- **PaaS** → delivery: você escolhe o sabor, eles entregam pronto
+- **SaaS** → restaurante: você só senta e come
+
+---
+
+### IaaS — Infrastructure as a Service
+- Você recebe: servidor virtual, armazenamento, rede, firewall
+- Você gerencia: SO, patches, middleware, aplicação, dados
+- **AWS:** Amazon EC2 (Elastic Compute Cloud)
+- Máquinas virtuais chamadas de **instâncias**, paga por hora/segundo
+- **Analogia:** apartamento vazio — estrutura existe, mas você traz os móveis
+- **Quando usar:** controle total, sistemas legados, equipe de infra dedicada
+
+---
+
+### PaaS — Platform as a Service
+- Você recebe: infraestrutura + SO + runtime já gerenciados
+- Você gerencia: só o código e os dados
+- **AWS:** Elastic Beanstalk, AWS Lambda
+- Lambda = **serverless** → você escreve a função, a AWS executa quando necessário
+- **Analogia:** apartamento mobiliado — você chega com a mala e começa a morar
+- **Quando usar:** startups, MVPs, equipes sem time de infra
+
+---
+
+### SaaS — Software as a Service
+- Você recebe: aplicação completa pronta para usar
+- Você gerencia: só seus dados e permissões de usuário
+- **Exemplos:** Gmail, Zoom, Salesforce / AWS: WorkMail, Chime
+- **Analogia:** restaurante cinco estrelas — você só escolhe o que pedir
+- **Quando usar:** times de negócio, quando o problema já está resolvido por outro
+
+---
+
+### Tabela de responsabilidades
+
+| Camada | IaaS | PaaS | SaaS |
+|---|---|---|---|
+| Hardware físico | ✅ AWS | ✅ AWS | ✅ AWS |
+| Virtualização | ✅ AWS | ✅ AWS | ✅ AWS |
+| Sistema Operacional | ❗ Você | ✅ AWS | ✅ AWS |
+| Runtime / Middleware | ❗ Você | ✅ AWS | ✅ AWS |
+| Aplicação | ❗ Você | ❗ Você | ✅ AWS |
+| Dados | ❗ Você | ❗ Você | ❗ Você |
+
+---
+
+## 📌 Modelos de Implantação
+
+### Nuvem Pública
+- Infra pertence ao provedor (AWS), compartilhada entre clientes
+- **Analogia:** ônibus público — você paga a passagem e usa
+- ✅ Custo baixo, escalabilidade, zero manutenção física
+- ❌ Menos controle sobre localização física dos dados
+
+### Nuvem Privada
+- Infra exclusiva de uma organização
+- **Analogia:** van executiva — só seus funcionários, você controla tudo
+- ✅ Controle total, compliance rígido
+- ❌ Custo alto, exige equipe especializada
+
+### Nuvem Híbrida
+- Combina on-premises + nuvem pública
+- **Analogia:** van executiva para reuniões confidenciais + Uber para o resto
+- **Serviços AWS para híbrido:**
+  - **AWS Outposts** → hardware da AWS dentro do seu datacenter
+  - **AWS Direct Connect** → link dedicado direto ao datacenter, sem internet pública
+  - **AWS VPN** → conexão criptografada pela internet, mais barata que Direct Connect
+- **Quando usar:** bancos, governo, saúde, migração gradual, dados que não podem sair do país
+
+---
+
+## 📌 Infraestrutura Global da AWS
+
+### Hierarquia
