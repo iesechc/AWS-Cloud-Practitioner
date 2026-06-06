@@ -113,5 +113,39 @@
 ---
 
 ## 📌 Infraestrutura Global da AWS
+## 📌 Infraestrutura Global da AWS
 
 ### Hierarquia
+
+```
+Região (Region)
+  └── Zona de Disponibilidade (AZ)
+        └── Datacenter(s) físicos
+              └── Edge Location (ponto de presença / CDN)
+```
+
+| Conceito                 | Qtd.  | O que é                                                        |
+|--------------------------|-------|----------------------------------------------------------------|
+| **Regiões**              | 33+   | Área geográfica independente (ex: `us-east-1`, `sa-east-1`)   |
+| **AZs por região**       | 3–6   | Datacenters fisicamente separados dentro da mesma região       |
+| **Edge Locations**       | 400+  | Pontos de cache CDN para CloudFront e Route 53                 |
+
+### Regiões — o que saber
+- Cada região é **completamente isolada** das outras
+- Dados **não saem** da região sem configuração explícita sua
+- Escolha de região depende de: latência, compliance, preço e serviços disponíveis
+- 🇧🇷 **sa-east-1 (São Paulo)** → única região na América do Sul, ativa desde 2011
+
+### Zonas de Disponibilidade (AZs)
+- Cada AZ = 1 ou mais datacenters com energia, rede e refrigeração independentes
+- Conectadas entre si por fibra óptica dedicada de **latência < 1ms**
+- Separação física garante que um desastre em uma AZ não afeta as outras
+- Identificadas como: `sa-east-1a`, `sa-east-1b`, `sa-east-1c`
+
+### Edge Locations
+- Usadas por **CloudFront** (CDN) e **Route 53** (DNS)
+- Entregam conteúdo ao usuário final com a menor latência possível
+- Existem em cidades que nem são regiões completas (ex: Bogotá, Lima, Buenos Aires)
+
+> 💡 **Dica de prova:** AZ ≠ Região. Região contém AZs.  
+> Alta disponibilidade = distribuir recursos em **múltiplas AZs** da mesma região.
