@@ -1,0 +1,197 @@
+## 1 · O que é Computação em Nuvem
+
+Entrega de serviços de TI **sob demanda** via internet,  
+com pagamento apenas pelo que você usa.
+
+| Modelo     | Descrição                                     |
+|------------|-----------------------------------------------|
+| Pública    | Infraestrutura da AWS, compartilhada          |
+| Privada    | Infraestrutura dedicada a uma organização     |
+| Híbrida    | Combinação pública + privada                  |
+
+**Números-chave**
+- `60%+` — redução média de custos vs. on-premises
+- `99.99%` — disponibilidade garantida pela AWS
+- `245+` — regiões e zonas de disponibilidade
+
+
+## 2 · Vantagens Principais
+
+| Vantagem         | O que significa                                          |
+|------------------|----------------------------------------------------------|
+| Escalabilidade   | Crescer capacity conforme a demanda aumenta              |
+| Elasticidade     | Crescer **e reduzir** automaticamente (up & down)        |
+| Custo variável   | OPEX em vez de CAPEX — pague só pelo uso                |
+
+> 💡 **Dica de prova:** Escalabilidade ≠ Elasticidade.  
+> Escalabilidade = capacidade de crescer.  
+> Elasticidade = crescer E diminuir de forma automática.
+
+## 3 · Amazon EC2 — Elastic Compute Cloud
+
+Servidores virtuais na nuvem. Controle total sobre SO e configuração.
+
+### Tipos de instâncias
+| Família             | Exemplo | Uso ideal                         |
+|---------------------|---------|-----------------------------------|
+| General Purpose     | t3, m6i | Aplicações web balanceadas        |
+| Compute Optimized   | c6i     | Processamento intensivo           |
+| Memory Optimized    | r6i     | Big Data, caches em memória       |
+| Storage Optimized   | i3      | Alto IOPS, bases de dados locais  |
+
+### Modelos de compra
+| Modelo      | Desconto | Ideal para                                    |
+|-------------|----------|-----------------------------------------------|
+| On-Demand   | —        | Cargas imprevisíveis, dev/test                |
+| Reserved    | até 72%  | Workloads estáveis (1–3 anos)                 |
+| Spot        | até 90%  | Batch tolerante a interrupções                |
+| Dedicated   | —        | Compliance / servidor físico exclusivo        |
+
+> 💡 **Dica de prova:** Maior desconto → **Spot** (até 90%).  
+> Comprometimento longo → **Reserved**.
+
+
+
+## 4 · Amazon S3 — Simple Storage Service
+
+Armazenamento de **objetos** (arquivos de qualquer tipo).
+
+- Durabilidade: **99.999999999%** (11 noves)
+- Objetos de até **5 TB**
+- Acesso via HTTP/HTTPS
+
+### Classes de armazenamento
+| Classe                  | Acesso      | Uso ideal                          |
+|-------------------------|-------------|------------------------------------|
+| S3 Standard             | Frequente   | Imagens, assets de aplicação       |
+| S3 Standard-IA          | Infrequente | Backups acessados ocasionalmente   |
+| S3 Glacier              | Horas       | Arquivamento de longo prazo        |
+| S3 Intelligent-Tiering  | Automático  | Dados com padrão de acesso variável|
+
+> 💡 **Dica de prova:** S3 é **object storage**, não file system.  
+> Não use para arquivos frequentemente modificados.
+
+
+
+## 5 · Amazon RDS — Relational Database Service
+
+Banco de dados relacional **gerenciado** pela AWS  
+(patches, backups, replicação e failover automáticos).
+
+### Engines suportadas
+`MySQL` · `PostgreSQL` · `MariaDB` · `Oracle` · `SQL Server` · `Amazon Aurora`
+
+### Funcionalidades-chave
+| Feature            | Descrição                                             |
+|--------------------|-------------------------------------------------------|
+| Multi-AZ           | Replica em 2ª AZ para alta disponibilidade           |
+| Read Replicas      | Até 5 réplicas de leitura para escalar horizontalmente|
+| Backups automáticos| PITR até 35 dias                                      |
+| Encryption at Rest | AES-256 nativo                                        |
+
+### Amazon Aurora
+- Compatível com MySQL e PostgreSQL
+- **5× mais rápido** que MySQL padrão
+- **3× mais barato** que bancos comerciais
+- Auto-escala de 10 GB até 128 TB
+
+> 💡 **Dica de prova:** Banco mais performático e gerenciado da AWS → **Aurora**.
+
+
+## 6 · AWS Lambda — Serverless
+
+Executa código sem provisionar ou gerenciar servidores.  
+Modelo **event-driven**: roda só quando acionado.
+
+### Funcionamento
+1. Evento chega (HTTP, S3, DynamoDB, agendamento…)
+2. Lambda executa o código
+3. Você paga apenas pelo tempo de execução (por ms)
+
+### Gatilhos comuns
+`API Gateway` · `S3 Events` · `DynamoDB Streams`  
+`CloudWatch Events` · `SNS / SQS` · `EventBridge`
+
+### Limites importantes
+| Parâmetro            | Limite              |
+|----------------------|---------------------|
+| Tempo máx. execução  | **15 minutos**      |
+| Memória              | 128 MB – 10 GB      |
+| Free Tier            | 1M requests/mês ♾️  |
+
+> 💡 **Dica de prova:** Lambda **não** serve para tarefas > 15 min  
+> nem para estado persistente em memória.
+
+
+## 7 · Quando Usar Cada Serviço
+
+| Serviço  | Use quando…                                      | Evite quando…                            |
+|----------|--------------------------------------------------|------------------------------------------|
+| EC2      | Precisa de controle do SO, apps legadas, GPU     | Tarefas event-driven simples             |
+| S3       | Armazenar arquivos, backups, sites estáticos     | Arquivos modificados com frequência      |
+| RDS      | Dados relacionais, ACID, SQL                     | Escala NoSQL massiva, dados não struct.  |
+| Lambda   | APIs, automações, event-driven rápidos           | Tarefas > 15 min, estado persistente     |
+
+## 8 · Segurança — IAM e Responsabilidade Compartilhada
+
+### Modelo de Responsabilidade Compartilhada
+| Quem       | Responsável por…                                          |
+|------------|-----------------------------------------------------------|
+| **AWS**    | Infra física, hardware, rede global, serviços gerenciados |
+| **Você**   | Dados, usuários, configs de rede, patches do SO (EC2)     |
+
+### IAM — Identity and Access Management
+| Conceito   | O que é                                              |
+|------------|------------------------------------------------------|
+| Users      | Pessoas ou serviços com credenciais próprias         |
+| Groups     | Conjunto de usuários com mesmas permissões           |
+| Roles      | Permissões atribuídas a **serviços** AWS             |
+| Policies   | Documentos JSON que definem o que é permitido/negado |
+
+> 💡 **Dica de prova:** Princípio do **mínimo privilégio**  
+> — conceda sempre apenas o acesso estritamente necessário.
+
+
+## 9 · Modelo de Preços e Free Tier
+
+### Três pilares de preço
+1. **Pay As You Go** — pague pelo uso real, sem contratos
+2. **Save When You Reserve** — até 72% de desconto reservando 1–3 anos
+3. **Pay Less Using More** — descontos automáticos por volume
+
+### AWS Free Tier (12 meses após criação da conta)
+| Serviço | O que é gratuito                        |
+|---------|-----------------------------------------|
+| EC2     | 750 h/mês — instância `t2.micro`        |
+| S3      | 5 GB de armazenamento                   |
+| RDS     | 750 h/mês — instância `db.t2.micro`     |
+| Lambda  | 1 milhão de requests/mês (**sempre**) ♾️|
+
+
+## 10 · Infraestrutura Global AWS
+
+| Conceito                   | Qtd.  | Descrição                                               |
+|----------------------------|-------|---------------------------------------------------------|
+| Regiões                    | 33+   | Locais geográficos independentes (ex: `sa-east-1`)      |
+| Zonas de Disponibilidade   | 105+  | Datacenters isolados dentro de uma região               |
+| Edge Locations             | 400+  | Pontos de presença para CloudFront CDN                  |
+
+> 🇧🇷 Região Brasil: **`sa-east-1`** (São Paulo) — disponível desde 2011.  
+> Ideal para conformidade com LGPD e baixa latência para usuários BR.
+
+
+
+## 11 · Resumo Rápido para a Prova
+
+- **Nuvem** → TI via internet, sem hardware próprio, pague pelo uso
+- **Escalabilidade** → capacidade de crescer | **Elasticidade** → cresce E reduz (auto)
+- **EC2** → servidor virtual | modelos: On-Demand / Reserved / Spot / Dedicated
+- **S3** → object storage | 11 noves de durabilidade | múltiplas classes
+- **RDS** → BD relacional gerenciado | Multi-AZ | Aurora = mais rápido
+- **Lambda** → serverless, event-driven, até 15 min, pague por ms
+- **IAM** → Users / Groups / Roles / Policies | mínimo privilégio
+- **Responsabilidade** → AWS = infra | Você = dados e configs
+- **Free Tier** → EC2 750h + S3 5GB + RDS 750h + Lambda 1M req/mês
+
+---
+*Notas geradas em aula · AWS Certified Cloud Practitioner (CLF-C02)*
