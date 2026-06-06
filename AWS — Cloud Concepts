@@ -149,3 +149,114 @@ Região (Region)
 
 > 💡 **Dica de prova:** AZ ≠ Região. Região contém AZs.  
 > Alta disponibilidade = distribuir recursos em **múltiplas AZs** da mesma região.
+
+
+## 📌 Tabela de Responsabilidades — IaaS / PaaS / SaaS
+
+| Camada                  | On-Premises | IaaS (EC2) | PaaS (Beanstalk) | SaaS (WorkMail) |
+|-------------------------|:-----------:|:----------:|:----------------:|:---------------:|
+| Aplicação               | Você        | Você       | Você             | AWS             |
+| Dados                   | Você        | Você       | Você             | Você            |
+| Runtime / Middleware    | Você        | Você       | AWS              | AWS             |
+| Sistema Operacional     | Você        | Você       | AWS              | AWS             |
+| Virtualização           | Você        | AWS        | AWS              | AWS             |
+| Servidores físicos      | Você        | AWS        | AWS              | AWS             |
+| Armazenamento / Rede    | Você        | AWS        | AWS              | AWS             |
+| Datacenter físico       | Você        | AWS        | AWS              | AWS             |
+
+Legenda: "Você" = sua responsabilidade | "AWS" = gerenciado pela AWS
+
+## 📌 Comparativo — Modelos de Implantação
+
+| Critério           | Pública              | Privada                   | Híbrida                        |
+|--------------------|----------------------|---------------------------|--------------------------------|
+| Dono da infra      | AWS                  | Sua organização           | Ambos                          |
+| Custo inicial      | Zero (OPEX)          | Alto (CAPEX)              | Médio                          |
+| Escalabilidade     | Alta                 | Limitada ao hardware      | Alta (via nuvem pública)       |
+| Controle           | Menor                | Total                     | Parcial                        |
+| Compliance         | Configurável         | Máximo                    | Flexível                       |
+| Analogia           | Ônibus público       | Van executiva             | Van + Uber conforme a ocasião  |
+
+### Serviços AWS para nuvem híbrida
+
+| Serviço             | O que faz                                                        |
+|---------------------|------------------------------------------------------------------|
+| AWS Outposts        | Hardware da AWS instalado fisicamente no seu datacenter          |
+| AWS Direct Connect  | Link dedicado privado entre seu datacenter e a AWS (sem internet)|
+| AWS VPN             | Túnel criptografado via internet — mais barato que Direct Connect|
+
+> 💡 Dica de prova:
+> Direct Connect = link físico dedicado, mais caro, mais estável
+> VPN = túnel pela internet, mais barato, latência variável
+
+
+## 📌 5 Características Essenciais (NIST) — Expandido
+
+| # | Característica               | O que significa na AWS                                      |
+|---|------------------------------|-------------------------------------------------------------|
+| 1 | Autoatendimento sob demanda  | Console, CLI ou API — sem ligar para ninguém               |
+| 2 | Acesso amplo à rede          | Qualquer dispositivo com internet acessa os serviços        |
+| 3 | Pool de recursos (multi-tenancy) | Mesma infra física, isolada por virtualização e IAM    |
+| 4 | Elasticidade rápida          | Auto Scaling sobe e desce instâncias automaticamente        |
+| 5 | Serviço medido               | CloudWatch monitora e você paga exatamente o que consumiu  |
+
+### Por que isso importa na prova?
+- "Sob demanda" → você provisiona SEM interação humana do provedor
+- "Elasticidade" → diferente de escalabilidade manual; acontece AUTOMATICAMENTE
+- "Medido" → base do modelo pay-as-you-go (OPEX)
+
+
+
+## 📌 IaaS / PaaS / SaaS — Resumo Rápido
+
+| Modelo | Você gerencia          | AWS gerencia              | Exemplo AWS                   |
+|--------|------------------------|---------------------------|-------------------------------|
+| IaaS   | SO, app, dados         | Hardware, rede, storage   | EC2                           |
+| PaaS   | Código e dados         | SO, runtime, infra        | Elastic Beanstalk, Lambda     |
+| SaaS   | Seus dados e usuários  | Tudo mais                 | WorkMail, Chime, Cognito      |
+
+Analogia da pizza:
+- IaaS  → ingredientes no supermercado: você faz tudo
+- PaaS  → delivery: você escolhe, eles entregam pronto
+- SaaS  → restaurante: só sentar e comer
+
+> 💡 Dica de prova: Lambda é PaaS (serverless) — você só escreve a função.
+> EC2 é IaaS — você ainda precisa gerenciar o sistema operacional.
+
+
+## 📌 Como a AWS Nasceu — Timeline
+
+| Ano  | Marco                                                                 |
+|------|-----------------------------------------------------------------------|
+| ~2002| Amazon identifica problema: equipes reinventando infra internamente   |
+| 2003 | Ideia de padronizar e eventualmente vender a plataforma interna       |
+| 2006 | Lançamento público: S3 (março) e EC2 (agosto)                         |
+| 2012 | re:Invent — primeira conferência anual da AWS                         |
+| Hoje | +200 serviços, 33+ regiões, líder de mercado em cloud                 |
+
+### Os 3 problemas que a AWS resolve
+
+| Problema      | Mundo sem AWS                        | Com AWS                              |
+|---------------|--------------------------------------|--------------------------------------|
+| Capital       | Comprar servidores = CAPEX alto      | Pagar centavos por hora = OPEX       |
+| Escala        | Provisionar para o pico = desperdício| Auto Scaling conforme a demanda      |
+| Velocidade    | Servidor novo: semanas/meses         | Instância pronta em minutos  
+
+
+
+## 📌 Resumo Geral — Cloud Concepts
+
+- **Nuvem** → TI sob demanda, pague pelo uso, sem hardware próprio
+- **NIST** → 5 características: autoatendimento, rede ampla, pool, elasticidade, medição
+- **IaaS** → você gerencia SO + app (EC2)
+- **PaaS** → você gerencia só código (Beanstalk, Lambda)
+- **SaaS** → você usa a aplicação pronta (WorkMail, Chime)
+- **Pública** → AWS é dona da infra, compartilhada
+- **Privada** → infra exclusiva sua, controle máximo, custo alto
+- **Híbrida** → combina on-premises + nuvem pública
+  - Outposts = hardware AWS no seu DC
+  - Direct Connect = link físico dedicado
+  - VPN = túnel criptografado pela internet
+- **Região** → área geográfica isolada (ex: sa-east-1 = São Paulo)
+- **AZ** → datacenter(s) físicos dentro de uma região
+- **Edge Location** → ponto CDN para CloudFront e Route 53
